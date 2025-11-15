@@ -73,12 +73,55 @@ node*deleteHead(node*head){
   }
   return head;
  }
+
+ node*removeelement(node*head,int el){
+  if(head==nullptr)return head;
+  if(head->data==el){
+    node*temp=head;
+    head=head->next;
+    delete temp;
+    return head;
+  }
+  node*temp=head;
+  node*prev=NULL;
+  while(temp!=nullptr){
+    if (temp->data==el)
+    {
+      prev->next=prev->next->next;
+      free(temp);
+      break;
+    }
+    prev=temp;
+    temp=temp->next; 
+  }
+  return head;
+ }
+
+ node*insertHead(node*head,int val){
+  return new node(val,head);
+ }
+
+ node*insertTail(node*head,int val){
+  if(head==nullptr){
+    return new node(val,head);
+  }
+  node*temp=head;
+  while(temp->next!=nullptr){
+    temp=temp->next;
+  }
+  node*newnode=new node(val);
+  temp->next=newnode;
+  return head;
+ }
 int main(){
   vector<int>arr={2,1,34,5};
   node*head=convertArrToLL(arr);
   // head=deleteHead(head);
   // head=deleteTail(head);
-  head=removeK(head,3);
+  // head=removeK(head,3);
+  // head=removeelement(head,34);
+  // head=insertHead(head,100);
+  head=insertTail(head,100);
   node*temp=head;
   while(head!=nullptr){
     cout<<temp->data<<" ";
